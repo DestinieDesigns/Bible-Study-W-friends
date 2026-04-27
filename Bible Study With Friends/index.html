@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scripture Path</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <main class="phone">
+      <div class="topbar">
+        <button class="icon-chip" type="button" id="homeShortcut" aria-label="Go home">☰</button>
+        <button class="header-login-btn" type="button" id="socialShortcut" aria-label="Open login and friends">
+          <span id="headerLoginLabel">Login</span>
+        </button>
+      </div>
+
+      <div class="doodle d1">✦</div>
+      <div class="doodle d2">✝</div>
+      <div class="doodle d3">❀</div>
+      <div class="doodle d4">↺</div>
+      <div class="doodle d5">✧</div>
+      <div class="doodle d6">♡</div>
+
+      <section id="homeScreen" class="screen active">
+        <div class="title-wrap">
+          <h1 class="title">Scripture <span>Path</span></h1>
+          <div class="subtitle">Learn. Reflect. Grow.</div>
+        </div>
+
+        <section class="chalk-card verse-card">
+          <div class="card-tag">Daily Verse</div>
+          <p id="dailyVerseText" class="verse-text"></p>
+          <p id="dailyVerseRef" class="verse-ref"></p>
+        </section>
+
+        <div class="reflection">What does this verse invite you to trust, notice, or practice today?</div>
+
+        <section class="button-stack">
+          <button class="bubble-btn primary" type="button" id="startTodayBtn">
+            🌱 Start Today’s Learning
+            <span class="button-sub">Learn → Practice → Quiz</span>
+          </button>
+
+          <div class="button-row">
+            <button class="bubble-btn blue" type="button" data-route="bibleScreen">
+              📖 Bible
+              <span class="button-sub">Read by book and chapter</span>
+            </button>
+
+            <button class="bubble-btn purple" type="button" data-route="practiceModeScreen">
+              🧩 Practice Mode
+              <span class="button-sub">Verse and review games</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="home-progress">
+          <div class="section-head">
+            <h2>Your Path</h2>
+            <span id="homeProgressLabel" class="muted"></span>
+          </div>
+          <div class="progress-bar">
+            <div id="homeProgressFill" class="progress-fill"></div>
+          </div>
+          <div class="progress-meta">
+            <span id="homeProgressText">0 of 0 chapters completed</span>
+            <span>Keep moving forward</span>
+          </div>
+        </section>
+      </section>
+
+      <section id="studyPathScreen" class="screen">
+        <div class="chalk-card screen-panel study-layout">
+          <div class="section-head">
+            <h2 class="screen-title">Study Path</h2>
+            <span class="muted">Locked step-by-step</span>
+          </div>
+          <p class="screen-subtitle">Choose a book and move chapter by chapter. Finish Learn, Practice, and Quiz to unlock the next one.</p>
+
+          <div class="study-layout-grid">
+            <div class="study-main-column">
+              <label class="field-label" for="studyBookSelect">Select a Book</label>
+              <select id="studyBookSelect" class="book-select"></select>
+
+              <div class="section-head">
+                <h3 id="bookProgressTitle">Progress</h3>
+                <span id="bookProgressCount" class="muted"></span>
+              </div>
+              <div class="progress-bar">
+                <div id="bookProgressFill" class="progress-fill"></div>
+              </div>
+
+              <div id="chapterGrid" class="chapter-grid"></div>
+            </div>
+
+            <section class="chalk-subsection books-learning-section">
+              <div class="section-head">
+                <h3>Books of the Bible</h3>
+                <span class="muted">66-book learning system</span>
+              </div>
+              <p class="screen-subtitle">Learn the full Bible structure in KJV order, grouped by Testament and category, then practice what you know.</p>
+
+              <label class="field-label" for="booksCategoryFilter">Filter by Category</label>
+              <select id="booksCategoryFilter" class="book-select"></select>
+
+              <div class="practice-tabs books-tabs">
+                <button class="tab-btn active" type="button" data-books-mode="learn">Learn</button>
+                <button class="tab-btn" type="button" data-books-mode="testament">Which Testament?</button>
+                <button class="tab-btn" type="button" data-books-mode="category">Which Category?</button>
+                <button class="tab-btn" type="button" data-books-mode="order">Book Order Quiz</button>
+              </div>
+
+              <div id="booksLearningPanel" class="activity-box books-panel"></div>
+            </section>
+          </div>
+
+          <button class="back-btn" type="button" data-route="homeScreen">← Back Home</button>
+        </div>
+      </section>
+
+      <section id="chapterDetailScreen" class="screen">
+        <div class="chalk-card screen-panel">
+          <div class="detail-head">
+            <div id="chapterDetailTag" class="card-tag">Chapter</div>
+            <h2 id="chapterTitle"></h2>
+            <p id="chapterSummary" class="screen-subtitle"></p>
+            <div id="chapterStatus" class="status-pill"></div>
+          </div>
+
+          <div id="lessonCheckpointBar" class="lesson-checkpoints"></div>
+
+          <div class="chapter-actions">
+            <button class="inline-btn learn" id="learnBtn" type="button">📘 Learn</button>
+            <button class="inline-btn practice" id="practiceBtn" type="button">📝 Practice</button>
+            <button class="inline-btn quiz" id="quizBtn" type="button">✅ Quiz</button>
+          </div>
+
+          <div id="activityBox" class="activity-box">
+            <p>Select an action to begin.</p>
+          </div>
+
+          <button class="back-btn" type="button" data-route="studyPathScreen">← Back to Study Path</button>
+        </div>
+      </section>
+
+      <section id="bibleScreen" class="screen">
+        <div class="chalk-card screen-panel reading-layout">
+          <div class="section-head">
+            <h2 class="screen-title">Bible Reading</h2>
+            <span class="muted">Read freely</span>
+          </div>
+          <p class="screen-subtitle">Browse by book and chapter with no locks, no quiz, and no pressure.</p>
+          <div class="status-pill translation-pill">Default Translation: King James Version (KJV)</div>
+
+          <div class="reading-layout-grid">
+            <div class="reading-main-column">
+              <label class="field-label" for="readingBookSelect">Book</label>
+              <select id="readingBookSelect" class="book-select"></select>
+
+              <label class="field-label" for="readingChapterSelect">Chapter</label>
+              <select id="readingChapterSelect" class="book-select"></select>
+
+              <div class="summary-box reading-box">
+                <h3 id="readingTitle"></h3>
+                <p id="readingSummary"></p>
+              </div>
+
+              <div class="summary-box study-timer-box">
+                <div class="section-head guide-head">
+                  <h3>Study Timer</h3>
+                  <span class="muted">Set your session</span>
+                </div>
+                <label class="field-label" for="studyMinutesInput">Minutes</label>
+                <input id="studyMinutesInput" class="timer-input" type="number" min="1" max="180" value="15" />
+                <div id="studyTimerDisplay" class="timer-display">15:00</div>
+                <div class="timer-actions">
+                  <button id="studyTimerStart" class="timer-btn" type="button">Start</button>
+                  <button id="studyTimerPause" class="timer-btn" type="button">Pause</button>
+                  <button id="studyTimerReset" class="timer-btn" type="button">Reset</button>
+                </div>
+                <div id="studyTimerStatus" class="timer-status">Choose a time and begin your study session.</div>
+              </div>
+            </div>
+
+            <div class="summary-box study-guide-box">
+              <div class="section-head guide-head">
+                <h3>Bible Study Guide</h3>
+                <span class="muted">Read with questions</span>
+              </div>
+              <div id="readingGuide"></div>
+            </div>
+          </div>
+
+          <button class="back-btn" type="button" data-route="homeScreen">← Back Home</button>
+        </div>
+      </section>
+
+      <section id="practiceModeScreen" class="screen">
+        <div class="chalk-card screen-panel">
+          <div class="section-head">
+            <h2 class="screen-title">Practice Mode</h2>
+            <span class="muted">Game mode selection</span>
+          </div>
+          <p class="screen-subtitle">Choose a study game mode, then work through flashcards to review what you’re learning.</p>
+
+          <div class="mode-selection-grid">
+            <button class="mode-card active" type="button" data-practice="verse">
+              <strong>Which verse is this?</strong>
+              <span>Study scripture references with flashcards</span>
+            </button>
+            <button class="mode-card" type="button" data-practice="order">
+              <strong>Book order quiz</strong>
+              <span>Review Bible order and structure</span>
+            </button>
+            <button class="mode-card" type="button" data-practice="review">
+              <strong>Quick review</strong>
+              <span>Revisit lesson ideas and key takeaways</span>
+            </button>
+          </div>
+
+          <div id="practicePanel" class="activity-box flashcard-panel"></div>
+
+          <button class="back-btn" type="button" data-route="homeScreen">← Back Home</button>
+        </div>
+      </section>
+
+      <section id="socialScreen" class="screen">
+        <div class="chalk-card screen-panel">
+          <div class="section-head">
+            <h2 class="screen-title">Login & Friends</h2>
+            <span class="muted">Study together</span>
+          </div>
+          <p class="screen-subtitle">Create a simple profile for this device, then search and add friends to your study circle.</p>
+
+          <div class="social-layout-grid">
+            <div class="summary-box social-card">
+              <div class="section-head guide-head">
+                <h3>Your Login</h3>
+                <span id="authStateBadge" class="muted">Not signed in</span>
+              </div>
+              <div id="authPanel"></div>
+            </div>
+
+            <div class="summary-box social-card">
+              <div class="section-head guide-head">
+                <h3>Find Friends</h3>
+                <span id="friendsCountBadge" class="muted">0 friends</span>
+              </div>
+              <div id="friendsPanel"></div>
+            </div>
+          </div>
+
+          <button class="back-btn" type="button" data-route="homeScreen">← Back Home</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
